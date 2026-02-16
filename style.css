@@ -1,0 +1,524 @@
+:root {
+    --bg-dark: oklch(0.08 0 80);
+    --bg: oklch(0.12 0 80);
+    --bg-light: oklch(0.18 0 80);
+    --text: oklch(0.96 0 80);
+    --text-muted: oklch(0.70 0 80);
+    --highlight: oklch(0.45 0.1 280);
+    --border: oklch(0.25 0 80);
+    --border-muted: oklch(0.18 0 80);
+    --primary: oklch(0.65 0.15 270);
+    --secondary: oklch(0.65 0.15 140);
+    --success: oklch(0.65 0.12 150);
+    --danger: oklch(0.60 0.14 20);
+    --warning: oklch(0.65 0.12 80);
+}
+
+body.light-mode {
+    --bg-dark: oklch(0.98 0 80);
+    --bg: oklch(0.95 0 80);
+    --bg-light: oklch(0.90 0 80);
+    --text: oklch(0.08 0 80);
+    --text-muted: oklch(0.40 0 80);
+    --border: oklch(0.80 0 80);
+    --border-muted: oklch(0.85 0 80);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text);
+}
+
+body.dark-mode {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, oklch(0.10 0 80) 100%);
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(90deg, rgba(0,0,0,0.2), transparent);
+    border-bottom: 1px solid var(--border-muted);
+}
+
+.header-left {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.theme-toggle,
+.settings-btn,
+.add-class-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    transition: all 0.3s ease;
+    border-radius: 0.5rem;
+}
+
+.theme-toggle:hover,
+.settings-btn:hover,
+.add-class-btn:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    transform: scale(1.1);
+}
+
+.theme-icon,
+.settings-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.settings-btn,
+.add-class-btn {
+    font-size: 1.5rem;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin: 2rem 1rem 1rem 1rem;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--border-muted);
+    background-color: var(--bg);
+    color: var(--text-muted);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.tab-btn:hover {
+    background-color: var(--bg-light);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--text);
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Content */
+.mode-content {
+    display: none;
+    padding: 2rem 1.5rem;
+}
+
+.mode-content.active {
+    display: block;
+}
+
+/* Grid */
+.students-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: 1.5rem;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    max-width: 90rem;
+}
+
+/* Student Box */
+.student-box {
+    border: 2px solid var(--border-muted);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    position: relative;
+    background: linear-gradient(135deg, var(--bg-light), var(--bg));
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    width: 16rem;
+    height: 16rem;
+}
+
+.student-box:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+}
+
+.student-name {
+    margin: 0 0 0.75rem 0;
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 600;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    flex-shrink: 0;
+}
+
+.points-display {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0.5rem 0;
+    flex-shrink: 0;
+}
+
+.warnings-display {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0.5rem 0 0.75rem 0;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.student-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 0.75rem 0;
+    flex-shrink: 0;
+}
+
+.student-buttons button {
+    flex: 1;
+    padding: 0.6rem 0;
+    border: 2px solid var(--border);
+    background-color: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.student-buttons button:hover {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-color: var(--primary);
+    color: var(--text);
+    transform: scale(1.05);
+}
+
+.student-buttons button:active {
+    transform: scale(0.98);
+}
+
+.warning-area {
+    display: none;
+}
+
+.student-delete-btn {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: none;
+    background-color: var(--danger);
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.student-delete-btn:hover {
+    background-color: var(--danger);
+    transform: scale(1.15) rotate(90deg);
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+}
+
+/* Footer */
+.class-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--border-muted);
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.reset-warnings-btn,
+.delete-class-btn,
+.add-student-btn {
+    padding: 0.75rem 2rem;
+    border: 2px solid var(--border-muted);
+    background-color: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.reset-warnings-btn:hover {
+    border-color: var(--warning);
+    background-color: rgba(255, 200, 87, 0.1);
+    color: var(--warning);
+    transform: translateY(-2px);
+}
+
+.delete-class-btn:hover {
+    border-color: var(--danger);
+    background-color: rgba(220, 38, 38, 0.1);
+    color: var(--danger);
+    transform: translateY(-2px);
+}
+
+.add-student-btn:hover {
+    border-color: var(--success);
+    background-color: rgba(102, 204, 153, 0.1);
+    color: var(--success);
+    transform: translateY(-2px);
+}
+
+.reset-warnings-btn:active,
+.delete-class-btn:active,
+.add-student-btn:active {
+    transform: translateY(0);
+}
+
+/* Modals */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 5000;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    background: linear-gradient(135deg, var(--bg-light), var(--bg));
+    border: 2px solid var(--border);
+    border-radius: 1rem;
+    padding: 2rem;
+    max-width: 30rem;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.modal h2 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+    font-size: 1.5rem;
+}
+
+.modal-content {
+    margin: 1.5rem 0;
+}
+
+.modal-field {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.modal-field label {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.modal-field input {
+    padding: 0.75rem;
+    border: 2px solid var(--border-muted);
+    background-color: var(--bg);
+    color: var(--text);
+    border-radius: 0.5rem;
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.modal-field input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(107, 114, 255, 0.1);
+}
+
+.modal-field input::placeholder {
+    color: var(--text-muted);
+}
+
+.data-buttons {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+.export-btn,
+.import-btn {
+    flex: 1;
+    padding: 0.6rem;
+    border: 2px solid var(--border-muted);
+    background-color: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.export-btn:hover {
+    border-color: var(--success);
+    background-color: rgba(102, 204, 153, 0.1);
+    color: var(--success);
+}
+
+.import-btn:hover {
+    border-color: var(--info);
+    background-color: rgba(107, 114, 255, 0.1);
+    color: var(--info);
+}
+
+.export-btn:active,
+.import-btn:active {
+    opacity: 0.8;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 2rem;
+}
+
+.modal-buttons button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.modal-buttons button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 114, 255, 0.3);
+}
+
+.modal-buttons button:active {
+    transform: translateY(0);
+}
+
+.modal-buttons .cancel-btn {
+    background: var(--bg-light);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+
+.modal-buttons .cancel-btn:hover {
+    background: var(--border);
+    box-shadow: none;
+}
+
+.confirm-modal {
+    text-align: center;
+}
+
+.confirm-modal p {
+    color: var(--text-muted);
+    margin: 1.5rem 0;
+    line-height: 1.6;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-muted);
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+h1 {
+    margin: 0.625rem 0;
+    color: var(--text);
+}
+
+.warning-btn {
+    background-color: var(--warning) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 0;
+}
+
+.warning-btn svg {
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.plus-btn {
+    background-color: var(--success) !important;
+}
+
+.plus-btn:hover {
+    background: var(--success) !important;
+    opacity: 0.8;
+}
+
+.minus-btn {
+    background-color: var(--danger) !important;
+}
+
+.minus-btn:hover {
+    background: var(--danger) !important;
+    opacity: 0.8;
+}
