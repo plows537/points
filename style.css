@@ -58,7 +58,8 @@ body.dark-mode {
 
 .theme-toggle,
 .settings-btn,
-.add-class-btn {
+.add-class-btn,
+.view-toggle {
     background: none;
     border: none;
     cursor: pointer;
@@ -74,13 +75,15 @@ body.dark-mode {
 
 .theme-toggle:hover,
 .settings-btn:hover,
-.add-class-btn:hover {
+.add-class-btn:hover,
+.view-toggle:hover {
     background-color: rgba(255, 255, 255, 0.05);
     transform: scale(1.1);
 }
 
 .theme-icon,
-.settings-icon {
+.settings-icon,
+.view-icon {
     width: 1.5rem;
     height: 1.5rem;
 }
@@ -141,12 +144,14 @@ body.dark-mode {
 
 /* Grid */
 .students-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
     margin: 2rem auto;
     padding: 0 1rem;
     max-width: 90rem;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 /* Student Box */
@@ -161,7 +166,8 @@ body.dark-mode {
     display: flex;
     flex-direction: column;
     width: 16rem;
-    height: 16rem;
+    height: auto;
+    min-height: 16rem;
 }
 
 .student-box:hover {
@@ -178,6 +184,7 @@ body.dark-mode {
     word-break: break-word;
     overflow-wrap: break-word;
     flex-shrink: 0;
+    min-height: 2rem;
 }
 
 .points-display {
@@ -194,7 +201,7 @@ body.dark-mode {
 .warnings-display {
     font-size: 0.9rem;
     color: var(--text-muted);
-    margin: 0.5rem 0 0.75rem 0;
+    margin: 0.5rem 0 auto 0;
     font-weight: 500;
     flex-shrink: 0;
 }
@@ -203,9 +210,27 @@ body.dark-mode {
     display: flex;
     gap: 0.5rem;
     justify-content: flex-end;
-    margin: 0.75rem 0;
+    margin: 0.75rem 0 0 0;
     flex-shrink: 0;
     margin-left: auto;
+}
+
+.student-buttons button {
+    flex: 0 0 auto;
+    padding: 0.6rem 0.5rem;
+    border: 2px solid var(--border);
+    background-color: var(--bg);
+    color: var(--text);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+    font-weight: 700;
+    font-size: 1.1rem;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .student-buttons button:hover {
@@ -217,6 +242,34 @@ body.dark-mode {
 
 .student-buttons button:active {
     transform: scale(0.98);
+}
+
+.plus-btn {
+    background-color: var(--success) !important;
+}
+
+.plus-btn:hover {
+    background: var(--success) !important;
+}
+
+.minus-btn {
+    background-color: var(--danger) !important;
+}
+
+.minus-btn:hover {
+    background: var(--danger) !important;
+}
+
+.warning-btn {
+    background-color: var(--warning) !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.warning-btn svg {
+    width: 1.2rem;
+    height: 1.2rem;
 }
 
 .warning-area {
@@ -480,77 +533,6 @@ h1 {
     color: var(--text);
 }
 
-.warning-btn svg {
-    width: 1.2rem;
-    height: 1.2rem;
-}
-
-.plus-btn:hover {
-    background: var(--success) !important;
-    opacity: 0.8;
-}
-
-.student-buttons button {
-    flex: 1;
-    padding: 0.6rem 0;
-    border: 2px solid var(--border);
-    background-color: var(--bg);
-    color: var(--text);
-    cursor: pointer;
-    border-radius: 0.5rem;
-    transition: all 0.3s ease;
-    font-weight: 700;
-    font-size: 1.1rem;
-    min-width: 45px;
-    max-width: 70px;
-    min-height: 40px;
-    max-height: 50px;
-}
-
-.warning-btn {
-    background-color: var(--warning) !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.6rem 0;
-    min-width: 45px;
-    max-width: 70px;
-    min-height: 40px;
-    max-height: 50px;
-}
-
-.plus-btn {
-    background-color: var(--success) !important;
-    min-width: 45px;
-    max-width: 70px;
-    min-height: 40px;
-    max-height: 50px;
-}
-
-.minus-btn {
-    background-color: var(--danger) !important;
-    min-width: 45px;
-    max-width: 70px;
-    min-height: 40px;
-    max-height: 50px;
-}
-
-.minus-btn:hover {
-    background: var(--danger) !important;
-    opacity: 0.8;
-}
-
-.students-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    margin: 2rem auto;
-    padding: 0 1rem;
-    max-width: 90rem;
-    justify-content: center;
-    align-items: flex-start;
-}
-
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -583,28 +565,19 @@ input[type="number"] {
     appearance: textfield;
 }
 
-.view-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--primary);
-    transition: all 0.3s ease;
-    border-radius: 0.5rem;
-}
+@media (max-width: 768px) {
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        height: 2.5rem;
+    }
 
-.view-toggle:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    transform: scale(1.1);
-}
+    input[type="number"]::-webkit-outer-spin-button {
+        background-size: 70%;
+    }
 
-.view-icon {
-    width: 1.5rem;
-    height: 1.5rem;
+    input[type="number"]::-webkit-inner-spin-button {
+        background-size: 70%;
+    }
 }
 
 /* List View Mode */
@@ -614,24 +587,26 @@ input[type="number"] {
     max-width: 100%;
     gap: 0.75rem;
     padding: 0 1rem;
+    justify-content: flex-start;
 }
 
 .students-grid.list-mode .student-box {
     width: 100%;
     height: auto;
+    min-height: auto;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     padding: 1.25rem 1.5rem;
     background: linear-gradient(90deg, var(--bg-light) 0%, var(--bg) 100%);
     border: 2px solid var(--border-muted);
-    min-height: 70px;
     gap: 1.5rem;
+    flex-wrap: wrap;
 }
 
 .students-grid.list-mode .student-box:hover {
     border-color: var(--primary);
-    transform: translateX(4px);
+    transform: none;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
@@ -650,6 +625,7 @@ input[type="number"] {
     flex: 0 0 80px;
     text-align: center;
     font-weight: 700;
+    color: var(--text);
 }
 
 .students-grid.list-mode .warnings-display {
@@ -665,23 +641,141 @@ input[type="number"] {
     margin: 0;
     gap: 0.5rem;
     flex: 1;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-content: flex-end;
 }
 
 .students-grid.list-mode .student-buttons button {
-    padding: 0.6rem 0.75rem;
-    font-size: 1rem;
+    width: 40px;
+    height: 40px;
+    padding: 0;
 }
 
 .students-grid.list-mode .student-delete-btn {
     position: relative;
     top: auto;
     right: auto;
-    width: 1.75rem;
-    height: 1.75rem;
+    width: 40px;
+    height: 40px;
     margin: 0;
     flex-shrink: 0;
 }
 
 .students-grid.list-mode .warning-area {
     display: none;
+}
+
+html {
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+    
+    .header {
+        padding: 1rem;
+    }
+    
+    .tabs {
+        margin: 1rem 0.5rem;
+        gap: 0.5rem;
+    }
+    
+    .tab-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .mode-content {
+        padding: 1rem;
+    }
+    
+    .students-grid {
+        gap: 1rem;
+        padding: 0 0.5rem;
+    }
+    
+    .student-box {
+        width: calc(50% - 0.5rem);
+        min-height: 14rem;
+        padding: 1rem;
+    }
+    
+    .student-name {
+        font-size: 0.95rem;
+    }
+    
+    .points-display {
+        font-size: 2rem;
+    }
+    
+    .warnings-display {
+        font-size: 0.8rem;
+    }
+    
+    .student-buttons button {
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+    }
+    
+    .student-delete-btn {
+        width: 1.75rem;
+        height: 1.75rem;
+        font-size: 1rem;
+    }
+    
+    .class-footer {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        gap: 0.5rem;
+    }
+    
+    .add-student-btn,
+    .reset-warnings-btn,
+    .delete-class-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .students-grid.list-mode {
+        padding: 0 0.5rem;
+    }
+    
+    .students-grid.list-mode .student-box {
+        padding: 0.75rem 1rem;
+        gap: 0.75rem;
+    }
+    
+    .students-grid.list-mode .student-name {
+        flex: 0 0 100px;
+        font-size: 0.95rem;
+    }
+    
+    .students-grid.list-mode .points-display {
+        flex: 0 0 60px;
+        font-size: 1.4rem;
+    }
+    
+    .students-grid.list-mode .warnings-display {
+        flex: 0 0 100px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 13px;
+    }
+    
+    .student-box {
+        width: 100%;
+    }
+    
+    .header h1 {
+        font-size: 1.25rem;
+    }
 }
