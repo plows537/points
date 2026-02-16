@@ -156,6 +156,29 @@ function switchToClass(classId) {
     renderClassContent(classId);
 }
 
+const viewToggle = document.getElementById("viewToggle");
+let isListMode = localStorage.getItem("pointTrackerViewMode") === "list" ? true : false;
+
+viewToggle.addEventListener("click", () => {
+    isListMode = !isListMode;
+    localStorage.setItem("pointTrackerViewMode", isListMode ? "list" : "grid");
+    toggleViewMode();
+});
+
+function toggleViewMode() {
+    const grid = document.querySelector(".students-grid");
+    if (grid) {
+        if (isListMode) {
+            grid.classList.add("list-mode");
+            viewToggle.title = "Switch to Grid View";
+        } else {
+            grid.classList.remove("list-mode");
+            viewToggle.title = "Switch to List View";
+        }
+    }
+}
+
+// Update renderClassContent to call this after rendering
 function renderClassContent(classId) {
     const classData = classes[classId];
     const container = document.getElementById("classesContainer");
@@ -174,10 +197,14 @@ function renderClassContent(classId) {
     }
     html += `<div class="class-footer"><button class="add-student-btn" onclick="openAddStudentModal(${classId})">+ Add Student</button><button class="reset-warnings-btn" onclick="resetAllWarnings(${classId})">Reset Warnings</button><button class="delete-class-btn" onclick="deleteClass(${classId})">Delete Class</button></div></div>`;
     container.innerHTML = html;
+    
+    // Apply view mode immediately after rendering (no animation)
+    toggleViewMode();
 }
 
 function createStudentBox(classId, studentId, student) {
-return `<div class="student-box"><h2 class="student-name">${student.name}</h2><div class="points-display">${student.points}</div><div class="warnings-display">Warnings: ${student.warnings}</div><div class="student-buttons"><button onclick="addPoint(${classId}, ${studentId})" class="plus-btn">+</button><button onclick="subtractPoint(${classId}, ${studentId})" class="minus-btn">−</button><button onclick="addWarning(${classId}, ${studentId})" class="warning-btn"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm330.5-51.5Q520-263 520-280t-11.5-28.5Q497-320 480-320t-28.5 11.5Q440-297 440-280t11.5 28.5Q463-240 480-240t28.5-11.5ZM440-360h80v-200h-80v200Zm40-100Z"/></svg></button></div><div class="warning-area"><div class="warning-indicator"></div></div><button class="student-delete-btn" onclick="deleteStudent(${classId}, ${studentId})">✕</button></div>`;}
+    return `<div class="student-box"><h2 class="student-name">${student.name}</h2><div class="points-display">${student.points}</div><div class="warnings-display">Warnings: ${student.warnings}</div><div class="student-buttons"><button onclick="addPoint(${classId}, ${studentId})" class="plus-btn">+</button><button onclick="subtractPoint(${classId}, ${studentId})" class="minus-btn">−</button><button onclick="addWarning(${classId}, ${studentId})" class="warning-btn"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm330.5-51.5Q520-263 520-280t-11.5-28.5Q497-320 480-320t-28.5 11.5Q440-297 440-280t11.5 28.5Q463-240 480-240t28.5-11.5ZM440-360h80v-200h-80v200Zm40-100Z"/></svg></button></div><div class="warning-area"><div class="warning-indicator"></div></div><button class="student-delete-btn" onclick="deleteStudent(${classId}, ${studentId})">✕</button></div>`;
+}
 
 function addStudent(classId) {
     const name = document.getElementById("studentNameInput").value.trim();
